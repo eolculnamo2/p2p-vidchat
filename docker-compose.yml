@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  redis-server:
+    image: 'redis'
+  live-video:
+    restart: always
+    build: './live-video'
+    ports:
+      - "8080:3000"
+  ui:
+    restart: always
+    build: './ui'
+    ports: 
+      - "80:3000"
