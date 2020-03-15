@@ -1,6 +1,7 @@
-FROM  node:alpine
-WORKDIR /app/ui
+FROM node:alpine as builder
+WORKDIR '/app'
 COPY package.json .
-RUN yarn
 COPY . .
-RUN yarn start
+
+FROM nginx
+COPY  --from=builder /app/build /usr/share/nginx/html

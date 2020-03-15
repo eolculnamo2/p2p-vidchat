@@ -21,7 +21,24 @@ const Cam: FC = (): JSX.Element => {
     setMessages([...messages, data]);
   })
 
-  const beginStream = () => {
+  const beginStream = async () => {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true })
+ 
+    let recorder = new MediaRecorder(stream);
+    let data:any = [];
+    
+    recorder.ondataavailable = event => {
+      data.push(event.data);
+      console.log(data);
+    }
+    recorder.start();
+
+    setTimeout(() => {
+      recorder.stop();
+    }, 200);
+    console.log('test')
+  
+
     // send base64 image to websocket
     setInterval(() => {
         // @ts-ignore
@@ -38,7 +55,7 @@ const Cam: FC = (): JSX.Element => {
     <>
       <WebCam
         audio={audioOn}
-        muted={false}
+        muted={true}
         onUserMedia={beginStream}
         ref={webcamRef}
       />
