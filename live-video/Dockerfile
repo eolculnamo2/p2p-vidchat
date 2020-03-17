@@ -1,7 +1,7 @@
 FROM  node:alpine
-WORKDIR /app/live-video
+WORKDIR '/app'
 COPY package.json .
-RUN yarn
-RUN yarn build
+#RUN yarn
+#RUN yarn build
 COPY . .
-RUN yarn start:prod
+CMD ["node", "./dist/main"]

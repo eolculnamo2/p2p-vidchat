@@ -25,7 +25,7 @@ const Cam: FC = (): JSX.Element => {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true })
  
     let recorder = new MediaRecorder(stream);
-    let data:any = [];
+    let data: Blob[] = [];
     
     recorder.ondataavailable = event => {
       data.push(event.data);
